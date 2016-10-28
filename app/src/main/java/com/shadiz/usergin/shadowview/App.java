@@ -1,31 +1,39 @@
 package com.shadiz.usergin.shadowview;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 
 import com.shadiz.usergin.shadowview.di.AppComponent;
 import com.shadiz.usergin.shadowview.di.DaggerAppComponent;
-import com.shadiz.usergin.shadowview.di.modules.AndroidModule;
-import com.shadiz.usergin.shadowview.utils.Preferences;
+import com.shadiz.usergin.shadowview.di.LoginComponent;
+import com.shadiz.usergin.shadowview.di.modules.AppModule;
 
 /**
  * Created by oldman on 25.10.16.
  */
 
 public class App extends Application {
-    private static AppComponent sAppComponent;
-    private static SharedPreferences preferences;
-
+    private static AppComponent appComponent;
+    private static LoginComponent loginComponent;
+    private static App context;
     @Override
     public void onCreate() {
         super.onCreate();
-
-        sAppComponent = DaggerAppComponent.builder()
-                .androidModule(new AndroidModule(this))
-                .build();
+        context = this;
+        getAppComponent();
     }
 
     public static AppComponent getAppComponent() {
-        return sAppComponent;
+        if (appComponent == null) {
+            buildAppComponent();
+        }
+        return appComponent;
     }
+
+    private static AppComponent buildAppComponent() {
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(context))
+                .build();
+        return appComponent;
+    }
+
 }

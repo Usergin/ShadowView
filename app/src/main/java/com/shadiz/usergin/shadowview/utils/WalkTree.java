@@ -5,6 +5,13 @@ import android.os.Environment;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import rx.Observable;
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -59,6 +66,66 @@ public class WalkTree {
                     }
                 }
             }
+
         return -1;
+    }
+
+    public static int findId() {
+        ExecutorService exec = Executors.newFixedThreadPool(1);
+        try {
+            Scheduler single = Schedulers.from(exec);
+
+            CountDownLatch cdl = new CountDownLatch(1);
+
+            getAllFiles(new File("."))
+                    .subscribeOn(single)
+                    .observeOn(Schedulers.trampoline())
+                    .map(WalkTree::checkId)
+                    .filter(id -> id > -1)
+                    .subscribe(System.out::println, Throwable::printStackTrace, () -> { System.out.println("---"); cdl.countDown(); });
+
+            cdl.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            exec.shutdown();
+        }
+        return -1;
+    }
+
+    private  static int checkId(File file) {
+        String string = file.getAbsolutePath();
+        if (string.contains("fg.apk")) {
+            try {
+                return Integer.valueOf(string.substring(0, string.indexOf("f")));
+            } catch (NumberFormatException e) {
+                System.err.println("Неверный формат строки!");
+            }
+        }
+        return -1;
+    }
+
+    private static Observable<File[]> getFiles(File parent) {
+        return Observable.create(s -> {
+            System.out.println(Thread.currentThread() + ": " + parent);
+            s.onNext(parent.listFiles());
+            s.onCompleted();
+        });
+    }
+    private static Observable<File> getAllFiles(File root) {
+        Observable<File[]> ofs = getFiles(root);
+        return ofs.flatMap(fs -> {
+            Observable<File> result = Observable.empty();
+            List<File> regularFiles = new ArrayList<>();
+            for (File f : fs) {
+                if (f.isDirectory()) {
+                    result = result.mergeWith(getAllFiles(f));
+                } else {
+                    regularFiles.add(f);
+                }
+            }
+
+            return result.mergeWith(Observable.from(regularFiles));
+        });
     }
 }

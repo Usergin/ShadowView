@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.shadiz.usergin.shadowview.model.DeviceInfo;
 
+import javax.inject.Inject;
+
 /**
  * Created by oldman on 26.10.16.
  */
@@ -20,22 +22,11 @@ public class Preferences {
     private static final String isAllDeviceInfo = "is_all_device_info";
     private static Gson gson;
 
-    static Preferences instance;
-    private Preferences(Context context) {
+    @Inject
+    public Preferences(Context context) {
         prefs = context.getSharedPreferences(PREFS_NAME, 0);
+        gson = new Gson();
     }
-
-    public static Preferences getInstance() {
-        return instance;
-    }
-    public synchronized static Preferences getInstance(Context context) {
-        if (instance == null) {
-            instance = new Preferences(context);
-            gson = new Gson();
-        }
-        return instance;
-    }
-
 
     public boolean isVisited () {
         return prefs.getBoolean(visited, false);
@@ -68,6 +59,15 @@ public class Preferences {
         prefs.edit().putBoolean(isAllDeviceInfo, isInfo).apply();
     }
 
+    public void setFirstSettings(){
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putBoolean("hasVisited", true);
+        edit.putBoolean("is_info", true);
+        edit.putBoolean("hideIcon", false);
+        edit.putString("period", "1"); // period must equal 10 min
+        edit.putString("code", "-1");
+        edit.commit();
+    }
 
 
 }

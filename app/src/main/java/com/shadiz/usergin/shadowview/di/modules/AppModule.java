@@ -16,10 +16,10 @@ import dagger.Provides;
  * Created by oldman on 25.10.16.
  */
 @Module
-public class AndroidModule {
+public class AppModule {
     private App app;
 
-    public AndroidModule(App app) {
+    public AppModule(App app) {
         this.app = app;
     }
 
@@ -36,6 +36,6 @@ public class AndroidModule {
     @Provides
     @Singleton
     public Preferences providesMyPreference() {
-        return  Preferences.getInstance(app);
+        return new  Preferences(app);
     }
 }

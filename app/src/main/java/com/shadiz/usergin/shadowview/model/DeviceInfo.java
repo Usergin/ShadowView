@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class DeviceInfo implements Serializable {
-    private String BUILD, imei, ABOUT, model, account;
+    private String BUILD, imei, ABOUT, model, time_setub, account;
     private static DeviceInfo devInstance = null; // the only instance of the class
 
     public DeviceInfo() {
@@ -50,6 +50,14 @@ public class DeviceInfo implements Serializable {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getTime() {
+        return time_setub;
+    }
+
+    public void setTime(String account) {
+        this.time_setub = account;
     }
 
     public String getAccount() {
