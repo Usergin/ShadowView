@@ -44,7 +44,22 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnAbo
     @Override
     public void onSetBaseInfoDev() {
         Log.d("Presenter", "Onsetbase");
-        interactor.createAboutDev(this);
+//        if (view != null)
+//            view.showProgress();
+//        interactor.createAboutDev(this);
+        view.showDialog();
+    }
+
+    @Override
+    public void onSetHideIcon(boolean isHide) {
+        interactor.onSetHideIcon(isHide);
+    }
+
+    @Override
+    public void onSetId(int id) {
+        if(view != null)
+            view.setVisibleSignInButton(false);
+        interactor.onSetIdAccount(id);
     }
 
     @Override
@@ -54,14 +69,22 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnAbo
 
     @Override
     public void onVisited(boolean result) {
-        if(!result){
+        if (!result) {
             interactor.setFirstPref(this);
         }
     }
 
     @Override
+    public void onSetFirstSettings(boolean result) {
+        interactor.onFindIdOnStorage(this);
+    }
+
+    @Override
     public void onResultIdOnStorage(int account) {
-            interactor.onFindIdOnStorage(this);
+        if (account == -1 || view != null) {
+            view.hideProgress();
+            view.showDialog();
+        }
     }
 
 //    @Override

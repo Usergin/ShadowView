@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.shadiz.usergin.shadowview.App;
 import com.shadiz.usergin.shadowview.model.DeviceInfo;
@@ -25,12 +26,16 @@ public class LoginInteractorImpl implements LoginInteractor {
     @Inject
     Preferences preferences;
 
+    @Inject
+    public LoginInteractorImpl() {
+        context = App.getAppComponent().getContext();
+        preferences = App.getAppComponent().getPreferences();
+    }
+
 
     @Override
     public void createAboutDev(OnAboutDeviceListener listener) {
-        context = App.getAppComponent().getContext();
-        preferences = App.getAppComponent().getPreferences();
-        final TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+         final TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String model = android.os.Build.MODEL;
         String androidVersion = android.os.Build.VERSION.RELEASE;
         String imei;
@@ -70,11 +75,23 @@ public class LoginInteractorImpl implements LoginInteractor {
     @Override
     public void setFirstPref(OnAboutDeviceListener listener) {
         preferences.setFirstSettings();
+        listener.onSetFirstSettings(true);
     }
 
     @Override
     public void onFindIdOnStorage(OnAboutDeviceListener listener) {
-
        listener.onResultIdOnStorage(WalkTree.findId());
     }
+
+    @Override
+    public void onSetHideIcon(boolean isHide) {
+        Log.d("LoginInteractor", "hide icon " + isHide);
+        preferences.setHideIcon(isHide);
+    }
+
+    @Override
+    public void onSetIdAccount(int id) {
+
+    }
+
 }

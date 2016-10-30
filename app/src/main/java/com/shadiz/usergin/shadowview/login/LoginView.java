@@ -10,4 +10,6 @@ public interface LoginView {
     void hideProgress();
 
     void showDialog();
+
+    void setVisibleSignInButton(boolean isVisible);
 }

@@ -13,9 +13,14 @@ public interface LoginInteractor {
 
     void onFindIdOnStorage(OnAboutDeviceListener listener);
 
+    void onSetHideIcon(boolean isHide);
+
+    void onSetIdAccount(int id);
+
     interface OnAboutDeviceListener {
-        void onSetBaseInfoFinished(boolean success);
-        void onVisited(boolean success);
+        void onSetBaseInfoFinished(boolean result);
+        void onVisited(boolean result);
+        void onSetFirstSettings(boolean result);
         void onResultIdOnStorage(int account);
     }
 }

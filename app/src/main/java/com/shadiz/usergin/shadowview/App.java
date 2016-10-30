@@ -15,18 +15,22 @@ public class App extends Application {
     private static AppComponent appComponent;
     private static LoginComponent loginComponent;
     private static App context;
+
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
-        getAppComponent();
+        setAppComponent();
     }
 
     public static AppComponent getAppComponent() {
+        return appComponent;
+    }
+
+    private void setAppComponent() {
         if (appComponent == null) {
             buildAppComponent();
         }
-        return appComponent;
     }
 
     private static AppComponent buildAppComponent() {

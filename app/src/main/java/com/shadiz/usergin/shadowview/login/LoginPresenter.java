@@ -15,4 +15,8 @@ public interface LoginPresenter {
 
     void onSetBaseInfoDev();
 
+    void onSetHideIcon(boolean isHide);
+
+    void onSetId(int id);
+
 }

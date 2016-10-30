@@ -2,6 +2,7 @@ package com.shadiz.usergin.shadowview.di.modules;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import com.shadiz.usergin.shadowview.App;
@@ -32,6 +33,11 @@ public class AppModule {
     @Singleton
     public SharedPreferences providesPreference() {
         return  PreferenceManager.getDefaultSharedPreferences(app);
+    }
+    @Provides
+    @Singleton
+    public Resources providesResources() {
+        return  app.getResources();
     }
     @Provides
     @Singleton

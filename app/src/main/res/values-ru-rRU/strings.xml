@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShadowView</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_account">Аккаунт</string>
+    <string name="action_sign_in_short">Войти в систему</string>
+    <string name="error_invalid_account">Неправильный номер аккаунта</string>
+    <string name="error_field_required">Заполните данное поле</string>
+    <string name="please_wait">Пожалуйста подождите...</string>
+    <string name="input_number_account">Введите номер аккаунта</string>
+    <string name="empty"/>
+    <string name="hide_icon">Удалить иконку</string>
+</resources>

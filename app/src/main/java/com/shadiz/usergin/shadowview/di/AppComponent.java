@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.Preference;
 
+import com.shadiz.usergin.shadowview.boot.BootBroadcastReceiver;
 import com.shadiz.usergin.shadowview.di.modules.AppModule;
 import com.shadiz.usergin.shadowview.di.modules.LoginModule;
 import com.shadiz.usergin.shadowview.login.LoginActivity;
@@ -29,4 +30,5 @@ public interface AppComponent {
     Preferences getPreferences();
 
     void inject(LoginInteractor interactor);
+    void inject(BootBroadcastReceiver bootBroadcastReceiver);
 }
