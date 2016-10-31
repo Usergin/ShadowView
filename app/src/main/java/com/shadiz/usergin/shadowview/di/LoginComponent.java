@@ -16,11 +16,10 @@ import dagger.Component;
 @ActivityScope
 @Component(modules = {LoginModule.class},   dependencies = AppComponent.class)
 public interface LoginComponent extends AppComponent{
-    void inject(LoginActivity loginActivity);
-
     LoginPresenter getPresenter();
     LoginInteractor getInteractor();
 
+    void inject(LoginActivity loginActivity);
     void inject(LoginInteractorImpl interactor);
     void inject(LoginPresenterImpl presenter);
 }

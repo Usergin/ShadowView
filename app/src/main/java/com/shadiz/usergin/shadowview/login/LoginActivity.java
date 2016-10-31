@@ -26,7 +26,7 @@ import butterknife.OnClick;
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
     // UI references.
-    private View mProgressView;
+    private MaterialDialog progressView;
     private View mLoginFormView;
     @Inject
     LoginPresenterImpl presenter;
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showProgress() {
-        new MaterialDialog.Builder(this)
+        progressView = new MaterialDialog.Builder(this)
                 .content(R.string.please_wait)
                 .progress(true, 0)
                 .show();
@@ -81,7 +81,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void hideProgress() {
-
+        if(progressView != null)
+            progressView.dismiss();
     }
 
     @Override

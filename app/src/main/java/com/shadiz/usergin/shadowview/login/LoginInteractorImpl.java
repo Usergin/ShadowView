@@ -90,8 +90,9 @@ public class LoginInteractorImpl implements LoginInteractor {
     }
 
     @Override
-    public void onSetIdAccount(int id) {
-
+    public void onSetIdAccount(int id, OnAboutDeviceListener listener) {
+        preferences.setAccount(id);
+        listener.onSetIdSuccess();
     }
 
 }

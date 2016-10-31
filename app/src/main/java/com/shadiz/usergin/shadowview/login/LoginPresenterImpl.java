@@ -3,7 +3,13 @@ package com.shadiz.usergin.shadowview.login;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.shadiz.usergin.shadowview.api.AuthUtils;
+import com.shadiz.usergin.shadowview.api.Response;
+import com.shadiz.usergin.shadowview.utils.RxUtils;
+
 import javax.inject.Inject;
+
+import rx.Observable;
 
 /**
  * Created by oldman on 26.10.16.
@@ -57,9 +63,12 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnAbo
 
     @Override
     public void onSetId(int id) {
-        if(view != null)
+        if (view != null) {
             view.setVisibleSignInButton(false);
-        interactor.onSetIdAccount(id);
+            view.showDialog();
+        }
+        interactor.onSetIdAccount(id, this);
+
     }
 
     @Override
@@ -72,6 +81,26 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnAbo
         if (!result) {
             interactor.setFirstPref(this);
         }
+    }
+
+    @Override
+    public void onSetIdSuccess() {
+//        if(view != null) {
+//            view.hideProgress();
+//
+//        }
+
+//        Observable<Response> userObservable = RxUtils.wrapRetrofitCall(serverService.signIn(token))
+//                .doOnNext(user -> AuthUtils.setToken(token));
+//        RxUtils.wrapAsync(userObservable)
+//                .subscribe(user -> {
+//                    getViewState().hideProgress();
+//                    getViewState().successSignIn();
+//                }, exception -> {
+//                    getViewState().hideProgress();
+//                    getViewState().showError(exception.getMessage());
+//                });
+
     }
 
     @Override

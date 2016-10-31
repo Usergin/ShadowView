@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import com.shadiz.usergin.shadowview.App;
 import com.shadiz.usergin.shadowview.utils.Preferences;
 
+import java.util.Calendar;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -37,7 +39,12 @@ public class AppModule {
     @Provides
     @Singleton
     public Resources providesResources() {
-        return  app.getResources();
+        return  app.getApplicationContext().getResources();
+    }
+    @Provides
+    @Singleton
+    public Calendar providesCalendar() {
+        return Calendar.getInstance();
     }
     @Provides
     @Singleton

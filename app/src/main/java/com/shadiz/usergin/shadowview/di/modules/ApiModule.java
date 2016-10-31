@@ -1,6 +1,6 @@
 package com.shadiz.usergin.shadowview.di.modules;
 
-import com.shadiz.usergin.shadowview.api.ServerApi;
+import com.shadiz.usergin.shadowview.api.ApiService;
 
 import javax.inject.Singleton;
 
@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
 public class ApiModule {
     @Provides
     @Singleton
-    public ServerApi provideAuthApi(Retrofit retrofit) {
-        return retrofit.create(ServerApi.class);
+    public ApiService provideAuthApi(Retrofit retrofit) {
+        return retrofit.create(ApiService.class);
     }
 }

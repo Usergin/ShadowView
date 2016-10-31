@@ -15,11 +15,12 @@ public interface LoginInteractor {
 
     void onSetHideIcon(boolean isHide);
 
-    void onSetIdAccount(int id);
+    void onSetIdAccount(int id, OnAboutDeviceListener listener);
 
     interface OnAboutDeviceListener {
         void onSetBaseInfoFinished(boolean result);
         void onVisited(boolean result);
+        void onSetIdSuccess();
         void onSetFirstSettings(boolean result);
         void onResultIdOnStorage(int account);
     }
