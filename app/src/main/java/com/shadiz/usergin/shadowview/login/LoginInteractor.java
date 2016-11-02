@@ -1,11 +1,13 @@
 package com.shadiz.usergin.shadowview.login;
 
+import com.shadiz.usergin.shadowview.model.DeviceInfo;
+
 /**
  * Created by oldman on 26.10.16.
  */
 
 public interface LoginInteractor {
-    void createAboutDev(OnAboutDeviceListener listener);
+    void createAboutDev(int id, OnAboutDeviceListener listener);
 
     void checkIsVisited(OnAboutDeviceListener listener);
 
@@ -16,6 +18,8 @@ public interface LoginInteractor {
     void onSetHideIcon(boolean isHide);
 
     void onSetIdAccount(int id, OnAboutDeviceListener listener);
+
+    DeviceInfo onGetDeviceInfo();
 
     interface OnAboutDeviceListener {
         void onSetBaseInfoFinished(boolean result);

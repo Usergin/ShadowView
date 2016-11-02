@@ -5,8 +5,26 @@ package com.shadiz.usergin.shadowview.model;
  */
 
 public class FirstTokenModel {
-    public String grant_type = "client_credentials";
-    public String client_id = "d04e6d2d6ea7e32c04f4e7c87c324458b7c9a617ddeaea731e4bcf446a604370";
-    public String scope = "client";
-    public String client_secret = "88e5df97f1926f0c3b9137dd78c38259bd460fc7c0d4bb94827c32bac386ad04";
+    public final String grant_type = "client_credentials";
+
+    public String getGrantType() {
+        return grant_type;
+    }
+
+    public String getClient_id() {
+        return client_id;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public String getClient_secret() {
+        return client_secret;
+    }
+
+
+    public final  String client_id = "9d3e00bca1e6af76e704c772c5ec6beb52abb6f35ec9addec70beadff5b509e5";
+    public final String scope = "client";
+    public final String client_secret = "679b8cb26a071ec2bbd13283ff798e2351cc680e91f59eaea5cb572148371f4a";
 }

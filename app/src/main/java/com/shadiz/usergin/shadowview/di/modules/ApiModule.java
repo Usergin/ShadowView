@@ -1,12 +1,12 @@
 package com.shadiz.usergin.shadowview.di.modules;
 
-import com.shadiz.usergin.shadowview.api.ApiService;
+        import com.shadiz.usergin.shadowview.api.ServerApi;
 
-import javax.inject.Singleton;
+        import javax.inject.Singleton;
 
-import dagger.Module;
-import dagger.Provides;
-import retrofit2.Retrofit;
+        import dagger.Module;
+        import dagger.Provides;
+        import retrofit2.Retrofit;
 
 /**
  * Created by oldman on 25.10.16.
@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
 public class ApiModule {
     @Provides
     @Singleton
-    public ApiService provideAuthApi(Retrofit retrofit) {
-        return retrofit.create(ApiService.class);
+    public ServerApi provideAuthApi(Retrofit retrofit) {
+        return retrofit.create(ServerApi.class);
     }
 }

@@ -1,17 +1,10 @@
 package com.shadiz.usergin.shadowview.di.modules;
 
-import android.content.Context;
-
-import com.shadiz.usergin.shadowview.App;
-import com.shadiz.usergin.shadowview.di.AppComponent;
 import com.shadiz.usergin.shadowview.login.LoginInteractor;
 import com.shadiz.usergin.shadowview.login.LoginInteractorImpl;
 import com.shadiz.usergin.shadowview.login.LoginPresenter;
 import com.shadiz.usergin.shadowview.login.LoginPresenterImpl;
 import com.shadiz.usergin.shadowview.login.LoginView;
-import com.shadiz.usergin.shadowview.utils.Preferences;
-
-import javax.inject.Inject;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,8 +19,9 @@ public class LoginModule {
     public LoginModule(LoginView view) {
         this.view = view;
     }
+
     @Provides
-    public LoginPresenter provideLoginPresenter(LoginView view, LoginInteractor interactor){
+    public LoginPresenter provideLoginPresenter(LoginView view, LoginInteractor interactor) {
         return new LoginPresenterImpl(view, interactor);
     }
 
@@ -40,4 +34,5 @@ public class LoginModule {
     public LoginInteractor provideInteractor() {
         return new LoginInteractorImpl();
     }
+
 }

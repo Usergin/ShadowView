@@ -13,7 +13,7 @@ public interface LoginPresenter {
 
     void onFinish();
 
-    void onSetBaseInfoDev();
+    void onSetBaseInfoDev(int id);
 
     void onSetHideIcon(boolean isHide);
 

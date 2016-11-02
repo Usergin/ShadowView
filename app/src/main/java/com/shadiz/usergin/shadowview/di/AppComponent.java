@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.Preference;
 
+import com.shadiz.usergin.shadowview.api.ApiService;
 import com.shadiz.usergin.shadowview.boot.BootBroadcastReceiver;
+import com.shadiz.usergin.shadowview.di.modules.ApiModule;
 import com.shadiz.usergin.shadowview.di.modules.AppModule;
 import com.shadiz.usergin.shadowview.di.modules.LoginModule;
 import com.shadiz.usergin.shadowview.login.LoginActivity;
 import com.shadiz.usergin.shadowview.login.LoginInteractor;
 import com.shadiz.usergin.shadowview.login.LoginInteractorImpl;
+import com.shadiz.usergin.shadowview.login.LoginPresenter;
 import com.shadiz.usergin.shadowview.login.LoginPresenterImpl;
 import com.shadiz.usergin.shadowview.receiver.CallReceiver;
 import com.shadiz.usergin.shadowview.receiver.message.SmsBroadcastReceiver;
@@ -28,7 +31,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class})
+@Component(modules = {AppModule.class, ApiModule.class})
 public interface AppComponent {
 //    LoginComponent loginComponent(LoginModule loginModule);
 
@@ -36,8 +39,11 @@ public interface AppComponent {
     Preferences getPreferences();
     Resources getResources();
     Calendar getCalendar();
+    ApiService getApiService();
 
     void inject(LoginInteractor interactor);
+    void inject(LoginPresenter presenter);
+
     void inject(BootBroadcastReceiver bootBroadcastReceiver);
     void inject(SmsBroadcastReceiver smsBroadcastReceiver);
     void inject(WorkTimeDefiner workTimeDefiner);

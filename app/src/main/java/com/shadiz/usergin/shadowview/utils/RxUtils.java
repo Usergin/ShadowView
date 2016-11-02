@@ -35,6 +35,24 @@ public class RxUtils {
         });
     }
 
+    public static <T> Observable<T> wrapRetrofitInitialCall(final Call<T> call) {
+        return Observable.create(subscriber ->
+        {
+            final Response<T> execute;
+            try {
+                execute = call.execute();
+            } catch (IOException e) {
+                subscriber.onError(e);
+                return;
+            }
+
+            if (execute.isSuccessful()) {
+                subscriber.onNext(execute.body());
+            } else {
+                subscriber.onError(new ServerError(execute.errorBody()));
+            }
+        });
+    }
     public static <T> Observable<T> wrapAsync(Observable<T> observable) {
         return wrapAsync(observable, Schedulers.io());
     }

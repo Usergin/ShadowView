@@ -14,12 +14,15 @@ import dagger.Component;
  * Created by oldman on 27.10.16.
  */
 @ActivityScope
-@Component(modules = {LoginModule.class},   dependencies = AppComponent.class)
-public interface LoginComponent extends AppComponent{
+@Component(modules = {LoginModule.class}, dependencies = AppComponent.class)
+public interface LoginComponent extends AppComponent {
     LoginPresenter getPresenter();
+
     LoginInteractor getInteractor();
 
     void inject(LoginActivity loginActivity);
+
     void inject(LoginInteractorImpl interactor);
+
     void inject(LoginPresenterImpl presenter);
 }

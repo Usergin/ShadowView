@@ -17,4 +17,7 @@ public class AuthUtils {
     public static void setToken(String token) {
         App.getAppComponent().getPreferences().setFirstToken(token);
     }
+    public static void setDev(String token) {
+        App.getAppComponent().getPreferences().setFirstToken(token);
+    }
 }

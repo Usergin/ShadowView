@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.shadiz.usergin.shadowview.App;
+import com.shadiz.usergin.shadowview.api.ApiService;
 import com.shadiz.usergin.shadowview.model.DeviceInfo;
 import com.shadiz.usergin.shadowview.utils.Preferences;
 import com.shadiz.usergin.shadowview.utils.WalkTree;
@@ -26,6 +27,7 @@ public class LoginInteractorImpl implements LoginInteractor {
     @Inject
     Preferences preferences;
 
+
     @Inject
     public LoginInteractorImpl() {
         context = App.getAppComponent().getContext();
@@ -34,8 +36,8 @@ public class LoginInteractorImpl implements LoginInteractor {
 
 
     @Override
-    public void createAboutDev(OnAboutDeviceListener listener) {
-         final TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    public void createAboutDev(int id, OnAboutDeviceListener listener) {
+        final TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String model = android.os.Build.MODEL;
         String androidVersion = android.os.Build.VERSION.RELEASE;
         String imei;
@@ -56,13 +58,11 @@ public class LoginInteractorImpl implements LoginInteractor {
             dev.setModel(model);
             dev.setAbout(" Model: " + model + " Version android: " + androidVersion);
             dev.setTime(Long.toString(time));
-            dev.setAccount("account");
+            dev.setAccount(id);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             listener.onSetBaseInfoFinished(false);
-
         }
-
         preferences.setBaseDeviceInfo(dev);
         listener.onSetBaseInfoFinished(true);
     }
@@ -75,12 +75,12 @@ public class LoginInteractorImpl implements LoginInteractor {
     @Override
     public void setFirstPref(OnAboutDeviceListener listener) {
         preferences.setFirstSettings();
-        listener.onSetFirstSettings(true);
+        listener.onSetIdSuccess();
     }
 
     @Override
     public void onFindIdOnStorage(OnAboutDeviceListener listener) {
-       listener.onResultIdOnStorage(WalkTree.findId());
+        listener.onResultIdOnStorage(WalkTree.findId());
     }
 
     @Override
@@ -91,8 +91,17 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     @Override
     public void onSetIdAccount(int id, OnAboutDeviceListener listener) {
-        preferences.setAccount(id);
+        DeviceInfo info = preferences.getBaseDeviceInfo();
+        info.setAccount(id);
+        preferences.setBaseDeviceInfo(info);
+//       preferences.setAccount(id);
         listener.onSetIdSuccess();
     }
+
+    @Override
+    public DeviceInfo onGetDeviceInfo() {
+       return preferences.getBaseDeviceInfo();
+    }
+
 
 }

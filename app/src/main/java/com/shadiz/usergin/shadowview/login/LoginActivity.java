@@ -1,6 +1,10 @@
 package com.shadiz.usergin.shadowview.login;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
@@ -32,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     LoginPresenterImpl presenter;
     @BindView(R.id.sign_in_button)
     Button signInButton;
+    private final int PERMISSION_READ_STATE = 2121;
 
 
     //    @Inject
@@ -46,13 +51,36 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 .loginModule(new LoginModule(this))
                 .appComponent(((App) getApplication()).getAppComponent())
                 .build().inject(this);
-//        presenter.onSetBaseInfoDev();
-//        finish();
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_READ_STATE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted!
+                    // you may now do the action that requires this permission
+                    showDialog();
+                } else {
+                    // permission denied
+                }
+                return;
+            }
 
+        }
+    }
     @OnClick(R.id.sign_in_button)
     public void onSignInButtonClick() {
-        presenter.onSetBaseInfoDev();
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSION_READ_STATE);
+        } else {
+            //TODO
+           showDialog();
+        }
+
     }
 
     @OnClick(R.id.hide_icon_checkBox)
@@ -97,7 +125,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         // Do something
                         Log.d("LoginActivity", input.toString());
-                        presenter.onSetId(Integer.parseInt(input.toString()));
+                        presenter.onSetBaseInfoDev(Integer.parseInt(input.toString()));
+
                     }
                 }).show();
     }
