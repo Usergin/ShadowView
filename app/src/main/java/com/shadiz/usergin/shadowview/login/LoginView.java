@@ -12,4 +12,6 @@ public interface LoginView {
     void showDialog();
 
     void setVisibleSignInButton(boolean isVisible);
+
+    void showSnackBar(String message);
 }

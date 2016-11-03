@@ -18,23 +18,9 @@ public class ServiceManager {
 
     @Inject
     Context context;
-//    private ApiService serverApi;
 
     private static String LOG_TAG = ServiceManager.class.getSimpleName()
             .toString();
-
-//    public ServiceManager(ApiService serverApi) {
-//        this.serverApi = serverApi;
-//    }
-
-
-//    public Observable<Response> signIn(FirstTokenModel firstTokenModel) {
-//        return ServerApiService.getFirstToken(firstTokenModel);
-//    }
-//
-//    public Call<List<Repository>> getUserRepos(String user, int page, Integer pageSize) {
-//        return mGithubApi.getUserRepos(user, page, pageSize);
-//    }
 
 
     public void runSMSObserver() {

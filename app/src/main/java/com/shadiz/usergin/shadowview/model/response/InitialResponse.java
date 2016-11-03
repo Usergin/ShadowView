@@ -1,4 +1,4 @@
-package com.shadiz.usergin.shadowview.api.response;
+package com.shadiz.usergin.shadowview.model.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,13 +7,13 @@ import com.google.gson.annotations.SerializedName;
  * Created by oldman on 02.11.16.
  */
 
-public class Initial {
-    public String getCodeInitial() {
-        return codeInitial;
+public class InitialResponse {
+    public String getInitialCode() {
+        return initialCode;
     }
 
-    public void setCodeInitial(String codeInitial) {
-        this.codeInitial = codeInitial;
+    public void setInitialCode(String codeInitial) {
+        this.initialCode = codeInitial;
     }
 
     public String getDevice() {
@@ -25,7 +25,7 @@ public class Initial {
     }
     @SerializedName("code_initial")
     @Expose
-    private String codeInitial;
+    private String initialCode;
     @SerializedName("device")
     @Expose
     private String device;

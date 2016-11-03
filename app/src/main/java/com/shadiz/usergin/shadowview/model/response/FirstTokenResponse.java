@@ -1,4 +1,4 @@
-package com.shadiz.usergin.shadowview.api.response;
+package com.shadiz.usergin.shadowview.model.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by oldman on 31.10.16.
  */
-public class FirstToken {
+public class FirstTokenResponse {
 
     public String getAccessFirstToken() {
         return accessFirstToken;

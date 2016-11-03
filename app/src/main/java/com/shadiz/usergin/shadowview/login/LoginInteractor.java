@@ -1,6 +1,7 @@
 package com.shadiz.usergin.shadowview.login;
 
 import com.shadiz.usergin.shadowview.model.DeviceInfo;
+import com.shadiz.usergin.shadowview.model.response.InitialResponse;
 
 /**
  * Created by oldman on 26.10.16.
@@ -19,6 +20,8 @@ public interface LoginInteractor {
 
     void onSetIdAccount(int id, OnAboutDeviceListener listener);
 
+    void onSetInitialInfo(InitialResponse response, OnAboutDeviceListener listener);
+
     DeviceInfo onGetDeviceInfo();
 
     interface OnAboutDeviceListener {
@@ -27,5 +30,6 @@ public interface LoginInteractor {
         void onSetIdSuccess();
         void onSetFirstSettings(boolean result);
         void onResultIdOnStorage(int account);
+        void onInitialInfoSuccess();
     }
 }

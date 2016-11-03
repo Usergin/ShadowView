@@ -1,13 +1,12 @@
 package com.shadiz.usergin.shadowview.api;
 
-import com.shadiz.usergin.shadowview.api.response.FirstToken;
-import com.shadiz.usergin.shadowview.api.response.Initial;
+import com.shadiz.usergin.shadowview.model.response.FirstTokenResponse;
+import com.shadiz.usergin.shadowview.model.response.InitialResponse;
 import com.shadiz.usergin.shadowview.model.DeviceInfo;
 import com.shadiz.usergin.shadowview.model.FirstTokenModel;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -23,11 +22,11 @@ public class ApiService {
     }
 
 
-    public Observable<FirstToken> getFirstToken(FirstTokenModel token) {
+    public Observable<FirstTokenResponse> getFirstToken(FirstTokenModel token) {
         return serverApi.getFirstToken(token.getGrantType(), token.getScope(), token.getClient_id(), token.getClient_secret());
     }
 
-    public Observable<Initial> getInitialDevice(String firstToken, DeviceInfo deviceInfo) {
-        return serverApi.getInitialDevice(firstToken, "application/json", deviceInfo.getAccount(), deviceInfo.getImei(), deviceInfo.getModel());
+    public Observable<InitialResponse> getInitialDevice(String firstToken, DeviceInfo deviceInfo) {
+        return serverApi.getInitialDevice("Bearer " + firstToken, "application/json", deviceInfo.getAccount(), deviceInfo.getImei(), deviceInfo.getModel());
     }
 }

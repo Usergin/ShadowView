@@ -25,11 +25,14 @@ public class Preferences {
     private static final String account = "account";
     private static final String timeWorker = "time_worker";
 
+
+    //-------------------initial data------------------------
+    private static final String initial_code = "initial_code";
+    private static final String device = "device";
+
     private static final String firstToken = "first_token";
-
-
-    private static final String secondToken = "second_token";
-
+    private static final String secondToken = "second_token" +
+            "";
     private static final String periodRequest = "period_request";
 
     private static String keyForRecord = "key_record";
@@ -56,6 +59,23 @@ public class Preferences {
         prefs = context.getSharedPreferences(PREFS_NAME, 0);
         gson = new Gson();
     }
+
+    public static String getInitialCode() {
+        return prefs.getString(initial_code, null);
+    }
+
+    public void setInitialCode(String mInitialCode) {
+        prefs.edit().putString(initial_code, mInitialCode).apply();
+    }
+
+    public static String getDevice() {
+        return prefs.getString(device, null);
+    }
+
+    public void setDevice(String mDevice) {
+        prefs.edit().putString(device, mDevice).apply();
+    }
+
     public String getFirstToken() {
         return prefs.getString(firstToken, null);
     }

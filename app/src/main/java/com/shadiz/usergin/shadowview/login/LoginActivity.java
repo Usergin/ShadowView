@@ -3,6 +3,8 @@ package com.shadiz.usergin.shadowview.login;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.shadiz.usergin.shadowview.App;
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 .appComponent(((App) getApplication()).getAppComponent())
                 .build().inject(this);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -64,12 +68,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                     showDialog();
                 } else {
                     // permission denied
+                    Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG).show();
                 }
                 return;
             }
 
         }
     }
+
     @OnClick(R.id.sign_in_button)
     public void onSignInButtonClick() {
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
@@ -78,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSION_READ_STATE);
         } else {
             //TODO
-           showDialog();
+            showDialog();
         }
 
     }
@@ -109,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void hideProgress() {
-        if(progressView != null)
+        if (progressView != null)
             progressView.dismiss();
     }
 
@@ -131,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 }).show();
     }
 
+
     @Override
     public void setVisibleSignInButton(boolean isVisible) {
         if (isVisible)
@@ -138,6 +145,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         else
             signInButton.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+//        Snackbar snackbar = Snackbar
+//                .make(this, "Welcome to AndroidHive", Snackbar.LENGTH_LONG);
+
+//        snackbar.show();
     }
 
 }

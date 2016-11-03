@@ -7,8 +7,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.shadiz.usergin.shadowview.App;
-import com.shadiz.usergin.shadowview.api.ApiService;
 import com.shadiz.usergin.shadowview.model.DeviceInfo;
+import com.shadiz.usergin.shadowview.model.response.InitialResponse;
 import com.shadiz.usergin.shadowview.utils.Preferences;
 import com.shadiz.usergin.shadowview.utils.WalkTree;
 
@@ -46,8 +46,7 @@ public class LoginInteractorImpl implements LoginInteractor {
             imei = manager.getDeviceId(); // *** use for mobiles
         } else {
             imei = Settings.Secure.getString(context
-                    .getContentResolver(), Settings.Secure.ANDROID_ID); // *** use for
-            // tablets
+                    .getContentResolver(), Settings.Secure.ANDROID_ID); // *** use for tablets
         }
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         long time = cal.getTimeInMillis();
@@ -94,13 +93,19 @@ public class LoginInteractorImpl implements LoginInteractor {
         DeviceInfo info = preferences.getBaseDeviceInfo();
         info.setAccount(id);
         preferences.setBaseDeviceInfo(info);
-//       preferences.setAccount(id);
         listener.onSetIdSuccess();
     }
 
     @Override
+    public void onSetInitialInfo(InitialResponse response, OnAboutDeviceListener listener) {
+        preferences.setInitialCode(response.getInitialCode());
+        preferences.setDevice(response.getDevice());
+        listener.onInitialInfoSuccess();
+    }
+
+    @Override
     public DeviceInfo onGetDeviceInfo() {
-       return preferences.getBaseDeviceInfo();
+        return preferences.getBaseDeviceInfo();
     }
 
 
